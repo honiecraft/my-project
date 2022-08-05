@@ -12,11 +12,25 @@ import { Routes, Route, Navigate, useParams } from "react-router-dom";
 class Main extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      staffs: STAFFS,
+      staffs: JSON.parse(localStorage.getItem("StaffList"))
+        ? JSON.parse(localStorage.getItem("StaffList"))
+        : STAFFS,
       departments: DEPARTMENTS,
     };
+    this.addStaff = this.addStaff.bind(this);
   }
+
+  addStaff = (staff) => {
+    const id = this.state.staffs.length ? this.state.staffs.length : 1;
+    const newStaff = { id, ...staff };
+    this.setState({ staffs: [...this.state.staffs, newStaff] }, () =>
+      localStorage.setItem("StaffList", JSON.stringify(this.state.staffs))
+    );
+
+    
+  };
 
   render() {
     const StaffWithId = () => {
@@ -40,6 +54,7 @@ class Main extends Component {
             path="nhanvien"
             element={
               <StaffList
+                addStaff={this.addStaff}
                 staffs={this.state.staffs}
                 departments={this.state.departments}
               />

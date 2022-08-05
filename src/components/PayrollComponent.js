@@ -1,15 +1,13 @@
 import {
   Card,
   CardHeader,
-  CardFooter,
-  CardTitle,
   CardBody,
   Breadcrumb,
   BreadcrumbItem,
   Button,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // Render payroll function
 const RenderPayroll = ({ staff }) => {
