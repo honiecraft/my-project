@@ -77,33 +77,33 @@ const Payroll = (props) => {
     });
 
   // Display Breadcrumb and Render function
-  if (props.isLoading) {
-    return (
-      <>
-        <div className="jumbotron">
-          <h1>BẢNG LƯƠNG</h1>
-        </div>
-        <div className="container">
-          <div className="row">
-            <Loading />
-          </div>
-        </div>
-      </>
-    );
-  } else if (props.errMess) {
-    return (
-      <>
-        <div className="jumbotron">
-          <h1>BẢNG LƯƠNG</h1>
-        </div>
-        <div className="container">
-          <div className="row">
-            <h4>{props.errMess}</h4>
-          </div>
-        </div>
-      </>
-    );
-  } else if (props.staffsSalary != null) {
+  // if (props.isLoading) {
+  //   return (
+  //     <>
+  //       <div className="jumbotron">
+  //         <h1>BẢNG LƯƠNG</h1>
+  //       </div>
+  //       <div className="container">
+  //         <div className="row">
+  //           <Loading />
+  //         </div>
+  //       </div>
+  //     </>
+  //   );
+  // } else if (props.errMess) {
+  //   return (
+  //     <>
+  //       <div className="jumbotron">
+  //         <h1>BẢNG LƯƠNG</h1>
+  //       </div>
+  //       <div className="container">
+  //         <div className="row">
+  //           <h4>{props.errMess}</h4>
+  //         </div>
+  //       </div>
+  //     </>
+  //   );
+  // } else if (props.staffsSalary != null) {
     return (
       <>
         <div className="jumbotron">
@@ -130,13 +130,12 @@ const Payroll = (props) => {
                 <BreadcrumbItem active>Bảng lương</BreadcrumbItem>
               </Breadcrumb>
             </div>
-
             <div className="row">{salary}</div>
           </div>
         </Fade>
       </>
     );
-  }
+  // }
 };
 
 export default Payroll;

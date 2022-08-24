@@ -15,7 +15,6 @@ import {
   Row,
   Col,
   Label,
-  FormFeedback,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
@@ -67,10 +66,6 @@ const StaffList = (props) => {
     annualLeave: "",
     overTime: "",
     image: "/assets/images/alberto.png",
-    touched: {
-      doB: false,
-      startDate: false,
-    },
   };
 
   const [newStaff, setNewStaff] = useReducer(
@@ -85,42 +80,13 @@ const StaffList = (props) => {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewStaff({
-      id: props.staffs.length ? this.props.staffs.length : 1,
-      [name]: value,
-    });
-  };
-
   const HandleSubmit = (values) => {
     toggleModal();
     setNewStaff(values);
-  };
 
-  const handleBlur = (field) => (evt) => {
-    setNewStaff({
-      touched: { ...newStaff.touched, [field]: true },
-    });
-  };
-
-  // Validate logic
-  const validate = (doB, startDate) => {
-    const errors = {
-      doB: "",
-      startDate: "",
-    };
-
-    //doB
-    if (newStaff.touched.doB && doB.length < 1) {
-      errors.doB = "Vui lòng không bỏ trống";
-    }
-
-    //startDay
-    if (newStaff.touched.startDate && startDate.length < 1) {
-      errors.startDate = "Vui lòng không bỏ trống";
-    }
-    return errors;
+    setTimeout(() => {
+      props.postStaff(stateRef.current);
+    }, 0);
   };
 
   // Function returns all the items
@@ -148,8 +114,6 @@ const StaffList = (props) => {
       &times;
     </button>
   );
-
-  const errors = validate(newStaff.doB, newStaff.startDate);
 
   // Render HTML
   if (props.staffs.isLoading) {
@@ -260,42 +224,54 @@ const StaffList = (props) => {
                           />
                         </Col>
                       </Row>
-                      <Row className="control-group">
+                      <Row>
                         <Label htmlFor="doB" md={12}>
                           Ngày sinh
                         </Label>
                         <Col md={12}>
-                          <Input
+                          <Control.text
                             type="date"
                             id="doB"
                             name="doB"
-                            placeholder="dd/mm/yyyy"
-                            value={newStaff.doB}
-                            valid={errors.doB === ""}
-                            invalid={errors.doB !== ""}
-                            onBlur={handleBlur("doB")}
-                            onChange={handleInputChange}
+                            model=".doB"
+                            className="form-control"
+                            validators={{
+                              required,
+                            }}
                           />
-                          <FormFeedback>{errors.doB}</FormFeedback>
+                          <Errors
+                            model=".doB"
+                            className="text-danger"
+                            show="touched"
+                            messages={{
+                              required: "Vui lòng không để trống. ",
+                            }}
+                          />
                         </Col>
                       </Row>
-                      <Row className="control-group">
+                      <Row>
                         <Label htmlFor="startDate" md={12}>
                           Ngày vào công ty
                         </Label>
                         <Col md={12}>
-                          <Input
+                          <Control.text
                             type="date"
                             id="startDate"
                             name="startDate"
-                            placeholder="dd/mm/yyyy"
-                            value={newStaff.startDate}
-                            valid={errors.startDate === ""}
-                            invalid={errors.startDate !== ""}
-                            onBlur={handleBlur("startDate")}
-                            onChange={handleInputChange}
+                            model=".startDate"
+                            className="form-control"
+                            validators={{
+                              required,
+                            }}
                           />
-                          <FormFeedback>{errors.startDate}</FormFeedback>
+                          <Errors
+                            model=".startDate"
+                            className="text-danger"
+                            show="touched"
+                            messages={{
+                              required: "Vui lòng không để trống. ",
+                            }}
+                          />
                         </Col>
                       </Row>
                       <Row>

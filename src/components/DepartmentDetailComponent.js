@@ -75,19 +75,21 @@ const DepartmentDetail = (props) => {
       <>
         <div className="jumbotron">
           {/* Title */}
-          <h1>PHÒNG BAN</h1>
+          <h1>{props.departments.name.toUpperCase()}</h1>
         </div>
         <div className="container">
-          <div className="row px-0">
-            <Breadcrumb className="col-12 px-0">
-              <BreadcrumbItem>
-                <Link to="/phongban">Phòng ban</Link>
-              </BreadcrumbItem>
-              <BreadcrumbItem active>{props.departments.name}</BreadcrumbItem>
-            </Breadcrumb>
-          </div>
-          <hr />
-          <div className="row">{staff}</div>
+          <Fade in>
+            <div className="row px-0">
+              <Breadcrumb className="col-12 px-0">
+                <BreadcrumbItem>
+                  <Link to="/phongban">Phòng ban</Link>
+                </BreadcrumbItem>
+                <BreadcrumbItem active>{props.departments.name}</BreadcrumbItem>
+              </Breadcrumb>
+            </div>
+            <hr />
+            <div className="row">{staff}</div>
+          </Fade>
         </div>
       </>
     );

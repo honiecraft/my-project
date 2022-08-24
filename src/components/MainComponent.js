@@ -15,7 +15,14 @@ import {
   useLocation,
 } from "react-router-dom";
 import { connect } from "react-redux";
-import { fetchStaffs, fetchDept, fetchStaffSal } from "../redux/ActionCreators";
+import {
+  fetchStaffs,
+  fetchDept,
+  fetchStaffSal,
+  postStaff,
+  deleteStaff,
+  updateStaff,
+} from "../redux/ActionCreators";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 const mapStateToProps = (state) => {
@@ -30,6 +37,9 @@ const mapDispatchToProps = (dispatch) => ({
   fetchStaffs: () => dispatch(fetchStaffs()),
   fetchDept: () => dispatch(fetchDept()),
   fetchStaffSal: () => dispatch(fetchStaffSal()),
+  postStaff: (staff) => dispatch(postStaff(staff)),
+  deleteStaff: (id) => dispatch(deleteStaff(id)),
+  updateStaff: (staff) => dispatch(updateStaff(staff)),
 });
 
 class Main extends Component {
@@ -41,33 +51,34 @@ class Main extends Component {
 
   render() {
     const StaffWithId = () => {
-      let params = useParams();
+      let { id } = useParams();
       return (
         <StaffInfor
-          staff={
-            this.props.staffs.staffs.filter((staff) => staff.id == params.id)[0]
-          }
+          staff={this.props.staffs.staffs.filter((staff) => staff.id == id)[0]}
           isLoading={this.props.staffs.isLoading}
           errMess={this.props.staffs.errMess}
+          deleteStaff={this.props.deleteStaff}
+          updateStaff={this.props.updateStaff}
           departments={this.props.departments.departments}
         />
       );
     };
 
     const StaffWithDept = () => {
-      let params = useParams();
+      let { deptId } = useParams();
       return (
         <DepartmentDetail
           departments={
             this.props.departments.departments.filter(
-              (dept) => dept.id == params.deptId
+              (dept) => dept.id == deptId
             )[0]
           }
           staff={this.props.staffs.staffs.filter(
-            (staff) => staff.departmentId == params.deptId
+            (staff) => staff.departmentId == deptId
           )}
           isLoading={this.props.departments.isLoading}
           errMess={this.props.departments.errMess}
+          staffsSalary={this.props.staffsSalary.staffsSalary}
         />
       );
     };
@@ -87,6 +98,7 @@ class Main extends Component {
                 element={
                   <StaffList
                     staffs={this.props.staffs}
+                    postStaff={this.props.postStaff}
                     departments={this.props.departments}
                   />
                 }

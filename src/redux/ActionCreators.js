@@ -1,8 +1,7 @@
 import * as ActionTypes from "./ActionTypes";
 import { baseUrl } from "../shared/baseUrl";
 
-//Staff List
-
+//Fetch Staff List
 export const fetchStaffs = () => (dispatch) => {
   dispatch(staffsLoading(true));
 
@@ -41,6 +40,105 @@ export const addStaffs = (staffs) => ({
   type: ActionTypes.ADD_STAFFS,
   payload: staffs,
 });
+
+// Post new staff
+export const addStaff = (staff) => ({
+  type: ActionTypes.ADD_STAFF,
+  payload: staff,
+});
+export const postStaff = (staff) => (dispatch) => {
+  return fetch(baseUrl + "staffs", {
+    method: "POST",
+    body: JSON.stringify(staff),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          const error = new Error(
+            `Error ${response.status}: ${response.statusText}`
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        throw error;
+      }
+    )
+    .then((response) => response.json())
+    .then((response) => dispatch(addStaff(response)))
+    .then(() => dispatch(fetchStaffSal()))
+    .catch((error) => {
+      console.log(`New Staff: ${error.message}`);
+      alert(`Can not post New Staff\nError: ${error.message}`);
+    });
+};
+
+//Delete Staff
+export const deleteStaffSuccess = (id) => ({
+  type: ActionTypes.DELETE_STAFF_SUCCESS,
+  payload: id,
+});
+
+export const deleteStaffLoading = () => ({
+  type: ActionTypes.DELETE_STAFF_LOADING,
+});
+
+export const deleteStaff = (id) => (dispatch) => {
+  if (window.confirm("Xác nhận xóa nhân viên?")) {
+    return fetch(baseUrl + `staffs/${id}`, {
+      method: "DELETE",
+    })
+      .then(() => dispatch(deleteStaffSuccess(id)))
+      .then(() => dispatch(fetchStaffSal()));
+  } else return;
+};
+
+// Update staff
+export const updateStaffSuccess = (staff) => ({
+  type: ActionTypes.UPDATE_STAFF_SUCCESS,
+  payload: staff,
+});
+
+export const updateStaff = (staff) => (dispatch) => {
+  return fetch(baseUrl + "staffs", {
+    method: "PATCH",
+    body: JSON.stringify(staff),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          const error = new Error(
+            `Error ${response.status}: ${response.statusText}`
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        throw error;
+      }
+    )
+    .then((response) => response.json())
+    .then((response) => dispatch(updateStaffSuccess(response)))
+    .then(() => dispatch(fetchStaffSal()))
+    .catch((error) => {
+      console.log(`Update Staff: ${error.message}`);
+      alert(`Can not update Staff\nError: ${error.message}`);
+    });
+};
 
 //Department
 export const fetchDept = () => (dispatch) => {
