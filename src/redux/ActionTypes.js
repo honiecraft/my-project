@@ -1,0 +1,11 @@
+export const STAFFS_LOADING = "STAFFS_LOADING";
+export const STAFFS_FAILED = "STAFFS_FAILED";
+export const ADD_STAFFS = "ADD_STAFFS";
+
+export const DEPT_LOADING = "DEPT_LOADING";
+export const DEPT_FAILED = "DEPT_FAILED";
+export const ADD_DEPT = "ADD_DEPT";
+
+export const STAFFSAL_LOADING = "STAFFSAL_LOADING";
+export const STAFFSAL_FAILED = "STAFFSAL_FAILED";
+export const ADD_STAFFSAL = "ADD_STAFFSAL";
