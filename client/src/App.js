@@ -12,8 +12,8 @@ import MailList from "./components/mailList/MailList";
 import Footer from "./components/footer/Footer";
 
 function App() {
+  const { user, token } = useContext(AuthContext);
   const RequireAuth = ({ children }) => {
-    const { user, token } = useContext(AuthContext);
     if (!user) {
       return <Navigate to="/login" />;
     } else if (user && !token) {

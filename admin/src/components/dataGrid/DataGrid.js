@@ -14,15 +14,13 @@ const Datagrid = ({ col }) => {
   const token = JSON.parse(sessionStorage.getItem("token"));
   const tokenInfor = token ? token : null;
 
-  const { data, isLoading, error } =
-    token &&
-    useFetch(
-      `${process.env.REACT_APP_SERVER_URL}/${
-        path === "" ? "transactions?limit=8" : path
-      }`,
-      null,
-      null
-    );
+  const { data, isLoading, error } = useFetch(
+    `${process.env.REACT_APP_SERVER_URL}/${
+      path === "" ? "transactions?limit=8" : path
+    }`,
+    null,
+    null
+  );
 
   useEffect(() => {
     setList([...data]);
