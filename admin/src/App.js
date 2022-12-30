@@ -22,12 +22,8 @@ function App() {
 
   const RequireAuth = ({ children }) => {
     const { user, token, dispatch } = useContext(AuthContext);
-    const tokenInfor = token
-      ? token
-      : sessionStorage.getItem("token")
-      ? JSON.parse(sessionStorage.getItem("token"))
-      : null;
-    if (!user || (user && !tokenInfor)) {
+
+    if (!user || !token) {
       dispatch({ type: "LOGOUT" });
       return <Navigate to="/login" />;
     }

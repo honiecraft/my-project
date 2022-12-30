@@ -12,14 +12,10 @@ import MailList from "./components/mailList/MailList";
 import Footer from "./components/footer/Footer";
 
 function App() {
-  const { user, token, dispatch } = useContext(AuthContext);
   const RequireAuth = ({ children }) => {
-    const tokenInfor = token
-      ? token
-      : sessionStorage.getItem("token")
-      ? JSON.parse(sessionStorage.getItem("token"))
-      : null;
-    if (!user || (user && !tokenInfor)) {
+    const { user, token, dispatch } = useContext(AuthContext);
+
+    if (!user || !token) {
       dispatch({ type: "LOGOUT" });
       return <Navigate to="/login" />;
     }

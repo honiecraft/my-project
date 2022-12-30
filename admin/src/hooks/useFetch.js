@@ -3,11 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 
 const useFetch = (url, method, query) => {
   const { token } = useContext(AuthContext);
-  const tokenInfor = token
-    ? token
-    : sessionStorage.getItem("token")
-    ? JSON.parse(sessionStorage.getItem("token"))
-    : null;
+  const tokenInfor = token ? token : null;
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);

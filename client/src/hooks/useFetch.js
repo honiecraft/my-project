@@ -6,11 +6,8 @@ const useFetch = (url, method, query) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const { token } = useContext(AuthContext);
-  const tokenInfor = token
-    ? token
-    : sessionStorage.getItem("token")
-    ? JSON.parse(sessionStorage.getItem("token"))
-    : null;
+
+  const tokenInfor = token ? token : null;
 
   useEffect(() => {
     fetchData();
