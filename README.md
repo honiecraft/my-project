@@ -34,10 +34,11 @@ This project is simple a application that demonstrates an E-commerce website wit
 * Authentication using JWT
 * MongoDB for database
 * Socket.io for real-time communication
+* Cloudinary for saving images
 * CSS styled-components
 * UI Components libraries: Bootstrap and Material-UI
 * Responsive
  	
 ## Setup
-To run this project, install it locally using npm and change the mongoDB url.
+To run this project, install it locally using npm and change the mongoDB url, Cloudinary API Key, and Gmail.
 
