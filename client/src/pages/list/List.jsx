@@ -50,7 +50,7 @@ const List = () => {
             <div className="lsItem">
               <label>Destination</label>
               <input
-                placeholder={destination}
+                defaultValue={destination}
                 type="text"
                 onChange={(e) => setDestination(e.target.value)}
               />
@@ -81,7 +81,7 @@ const List = () => {
                     type="number"
                     className="lsOptionInput"
                     onChange={(e) => handleChange(e)}
-                    placeholder={options.minPrice}
+                    defaultValue={options.minPrice}
                   />
                 </div>
                 <div className="lsOptionItem">
@@ -93,7 +93,7 @@ const List = () => {
                     type="number"
                     className="lsOptionInput"
                     onChange={(e) => handleChange(e)}
-                    placeholder={options.maxPrice}
+                    defaultValue={options.maxPrice}
                   />
                 </div>
                 <div className="lsOptionItem">
@@ -103,7 +103,7 @@ const List = () => {
                     type="number"
                     min={1}
                     className="lsOptionInput"
-                    placeholder={options.adult}
+                    defaultValue={options.adult}
                     onChange={(e) => handleChange(e)}
                   />
                 </div>
@@ -114,7 +114,7 @@ const List = () => {
                     type="number"
                     min={0}
                     className="lsOptionInput"
-                    placeholder={options.child}
+                    defaultValue={options.child}
                     onChange={(e) => handleChange(e)}
                   />
                 </div>
@@ -125,7 +125,7 @@ const List = () => {
                     type="number"
                     min={1}
                     className="lsOptionInput"
-                    placeholder={options.room}
+                    defaultValue={options.room}
                     onChange={(e) => handleChange(e)}
                   />
                 </div>

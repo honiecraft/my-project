@@ -14,11 +14,9 @@ import Footer from "./components/footer/Footer";
 function App() {
   const { user, token } = useContext(AuthContext);
   const RequireAuth = ({ children }) => {
-    if (!user) {
-      return <Navigate to="/login" />;
-    } else if (user && !token) {
+    if (!user || (user && !token)) {
       localStorage.removeItem("user");
-      window.location.href = "/login";
+      return <Navigate to="/login" />;
     }
 
     return children;

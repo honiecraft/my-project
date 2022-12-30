@@ -1,11 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const useFetch = (url, method, query) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
-  const token = JSON.parse(sessionStorage.getItem("token"));
-  const tokenInfor = token ? token : null;
+  const { token } = useContext(AuthContext);
+  const tokenInfor = token
+    ? token
+    : sessionStorage.getItem("token")
+    ? JSON.parse(sessionStorage.getItem("token"))
+    : null;
 
   useEffect(() => {
     fetchData();
