@@ -19,7 +19,7 @@ const RoomForm = () => {
 
   const { data, isLoading } = useFetch(
     `${process.env.REACT_APP_SERVER_URL}/rooms${
-      isEditing && `/${selectedRoomlId}`
+      isEditing ? `/${selectedRoomlId}` : ""
     }`,
     null,
     null

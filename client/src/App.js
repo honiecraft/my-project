@@ -12,21 +12,58 @@ import MailList from "./components/mailList/MailList";
 import Footer from "./components/footer/Footer";
 
 function App() {
-  const { user } = useContext(AuthContext);
+  const RequireAuth = ({ children }) => {
+    const { user, token } = useContext(AuthContext);
+    if (!user) {
+      return <Navigate to="/login" />;
+    } else if (user && !token) {
+      localStorage.removeItem("user");
+      window.location.href = "/login";
+    }
+
+    return children;
+  };
 
   return (
     <div>
       <Navbar />
       <Routes>
+        <Route path="/">
+          <Route path="/signup" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route
+            index
+            element={
+              <RequireAuth>
+                <Home />
+              </RequireAuth>
+            }
+          />
+        </Route>
         <Route
-          path="/"
-          element={user ? <Home /> : <Navigate to="/login" replace />}
+          path="/hotels/search"
+          element={
+            <RequireAuth>
+              <List />
+            </RequireAuth>
+          }
         />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Login />} />
-        <Route path="/hotels/search" element={<List />} />
-        <Route path="/hotels/:id" element={<Hotel />} />
-        <Route path="/transactions/:id" element={<Transaction />} />
+        <Route
+          path="/hotels/:id"
+          element={
+            <RequireAuth>
+              <Hotel />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/transactions/:id"
+          element={
+            <RequireAuth>
+              <Transaction />
+            </RequireAuth>
+          }
+        />
       </Routes>
       <MailList />
       <Footer />
