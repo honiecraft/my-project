@@ -28,20 +28,16 @@ function App() {
     <div>
       <Navbar />
       <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Login />} />
         <Route
           path="/"
           element={
-            user ? (
-              <RequireAuth>
-                <Home />
-              </RequireAuth>
-            ) : (
-              <Navigate to="/login" replace />
-            )
+            <RequireAuth>
+              <Home />
+            </RequireAuth>
           }
         />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Login />} />
         <Route
           path="/hotels/search"
           element={

@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-
-import { AuthContext } from "../../../client/src/context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 
 const useFetch = (url, method, query) => {
   const { token } = useContext(AuthContext);
