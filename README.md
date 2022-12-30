@@ -23,9 +23,9 @@ This project is a simple hotel booking system which keeps track of the rooms res
   - Perform Authentication and Authorization with the incoming request.
   - Respond with appropriate Resources, Errors, and Status codes.
 ### Demo
-- [Client page](https://booking-client.onrender.com)  
+- [Client page](https://booking-client-u49l.onrender.com)  
 - [Admin page](https://booking-admin.onrender.com)
-- [Server page](https://booking-server.onrender.com)
+- [Server page](https://booking-server-2fs7.onrender.com)
 
 ## Features
 * Uses React Js for UI
