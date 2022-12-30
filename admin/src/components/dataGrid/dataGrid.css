@@ -1,0 +1,79 @@
+.datatable {
+  height: 600px;
+  padding: 20px;
+}
+.datatableTitle {
+  width: 100%;
+  font-size: 24px;
+  color: gray;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cellWithImg {
+  display: flex;
+  align-items: center;
+}
+.cellImg {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.cellWithStatus {
+  padding: 5px;
+  border-radius: 5px;
+}
+.cellWithStatus.active {
+  background-color: rgba(0, 128, 0, 0.05);
+  color: green;
+}
+.cellWithStatus.pending {
+  background-color: rgba(255, 217, 0, 0.05);
+  color: goldenrod;
+}
+.cellWithStatus.passive {
+  background-color: rgba(255, 0, 0, 0.05);
+  color: crimson;
+}
+
+.cellAction {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.editButton,
+.deleteButton,
+.addNewButton {
+  text-transform: none !important;
+}
+
+a.link {
+  text-decoration: none !important;
+  border: none;
+}
+
+.status {
+  color: green;
+}
+
+.booked > div {
+  background-color: #f5b8ad;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+.checkin > div {
+  background-color: #39d139;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+.checkout > div {
+  background-color: #dedbfd;
+  border-radius: 5px;
+  padding: 0.5rem;
+}

@@ -1,0 +1,54 @@
+.tableContainer {
+  padding: 2rem 4rem;
+}
+
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+#customers td,
+#customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#customers tr:hover {
+  background-color: #ddd;
+}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #0071c2;
+  color: white;
+}
+
+.status {
+  color: green;
+}
+
+#Booked > span {
+  background-color: #f5b8ad;
+  border-radius: 5px;
+  padding: 0.3rem;
+}
+
+#Checkin > span {
+  background-color: #39d139;
+  border-radius: 5px;
+  padding: 0.3rem;
+}
+
+#Checkout > span {
+  background-color: #dedbfd;
+  border-radius: 5px;
+  padding: 0.3rem;
+}

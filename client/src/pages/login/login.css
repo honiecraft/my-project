@@ -1,0 +1,27 @@
+.loginContainer,
+.loginForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+.loginForm > input {
+  background-color: #ebf3ff;
+  border: 1px solid rgb(182, 180, 180);
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+}
+
+.loginForm > button {
+  width: 100%;
+  margin: 0.5rem 0;
+  border: none;
+  padding: 10px 20px;
+  background-color: #0071c2;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}

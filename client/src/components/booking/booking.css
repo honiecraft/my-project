@@ -1,0 +1,104 @@
+.container {
+  display: flex;
+  column-gap: 50px;
+  justify-content: flex-start;
+  align-items: baseline;
+}
+
+.title {
+  font-size: 20px;
+}
+
+.info {
+  width: 100%;
+}
+
+.info-item {
+  margin-top: 0.7rem;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+.room-item {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  padding: 20px 0 20px;
+}
+
+.room-title {
+  font-weight: 500;
+}
+
+.room-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.room-desc {
+  font-weight: 300;
+}
+
+.room-max {
+  font-size: 12px;
+}
+
+.room-price {
+  font-weight: 500;
+}
+
+.select-room-container {
+  display: grid;
+  column-gap: 50px;
+  grid-template-columns: 50% 50%;
+  justify-content: start;
+}
+
+.select-rooms {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.room {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem;
+  align-items: center;
+  color: gray;
+  font-size: 13px;
+}
+
+.room-max {
+  font-size: 13px;
+}
+
+.select-payment {
+  width: 30%;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: rgb(236, 236, 236);
+}
+
+.button {
+  border: none;
+  background-color: #0071c2;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 15px 40px;
+  width: auto;
+  margin-top: 20px;
+}
