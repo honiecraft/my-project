@@ -6,19 +6,18 @@
 * [Setup](#setup)
 
 ## General info
-This project is simple a application that demonstrates an E-commerce website with live chat using the MERN stack and Socket.io.<br/>
+This project is a simple hotel booking system which keeps track of the rooms reservation in hotel.<br/>
 
 ### Structures
 #### 1. Client side
   - The application loads data from API and displays them.
-  - Users can select to display products in a single category, click on any product to get more information including pricing and add them to their shopping cart then checkout.
-  - Auto update Available stock quantity when having new order with Socket.io.
-  - Realtime chat (Socket.io) with Admins and Associates.
+  - Users can search hotel by Destination, Price, Available date and Number of People.
+  - Click on any Hotel to get more information including pricing, description, images.
+  - Perform booking by input User Information, choose Date range, select Room, Payment method and Reserve.
 #### 2. Admin side
-  - Authorization for Admin and Associates role (Chat function only).
-  - Dashboard for Revenue, Orders, and Users.
-  - Create new, Update and Delete Products (with multiple images upload).
-  - Live chat with Client: each Conversation must include up to 2 members and is only visible to the relevant member, Admin can view all Conversations.
+  - Authorization for Admin only.
+  - Dashboard for lastest Transaction.
+  - Create new, Update and Delete Hotel/ Room (if no one booked).
 #### 3. API
   - Connect to the database.
   - Perform Authentication and Authorization with the incoming request.
@@ -38,5 +37,5 @@ This project is simple a application that demonstrates an E-commerce website wit
 * Responsive
  	
 ## Setup
-To run this project, install it locally using npm and change the mongoDB url, Cloudinary API Key, and Gmail.
+To run this project, install it locally using npm and change the mongoDB url.
 
