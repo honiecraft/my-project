@@ -44,7 +44,8 @@ const Login = () => {
           payload: body.details,
           payload2: body.token,
         });
-        navigate("/");
+        const token = JSON.parse(sessionStorage.getItem("token"));
+        token && navigate("/");
       } else
         dispatch({ type: "LOGIN_FAIL", payload: { message: "Not allowed!" } });
     } catch (err) {

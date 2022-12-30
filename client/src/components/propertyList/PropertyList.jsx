@@ -1,3 +1,4 @@
+import Loading from "../Loading";
 import "./propertyList.css";
 
 const imgArr = [
@@ -29,28 +30,30 @@ const PropertyList = ({ hotelList }) => {
     ...h,
     img: imgArr.filter((img) => img.id === h.type)[0].img,
   }));
-
-  return (
-    <div className="pList">
-      {result.length > 0 ? (
-        result.map((h) => {
-          return (
-            <div className="pListItem" key={h.type}>
-              <img src={h.img} alt="" className="pListImg" />
-              <div className="pListTitles">
-                <h1>{h.type}</h1>
-                <h2>
-                  {h.count} {h.type.toLowerCase()}
-                </h2>
+  if (!result) {
+    return <Loading />;
+  } else
+    return (
+      <div className="pList">
+        {result.length > 0 ? (
+          result.map((h) => {
+            return (
+              <div className="pListItem" key={h.type}>
+                <img src={h.img} alt="" className="pListImg" />
+                <div className="pListTitles">
+                  <h1>{h.type}</h1>
+                  <h2>
+                    {h.count} {h.type.toLowerCase()}
+                  </h2>
+                </div>
               </div>
-            </div>
-          );
-        })
-      ) : (
-        <h1>Not Found!</h1>
-      )}
-    </div>
-  );
+            );
+          })
+        ) : (
+          <h1>Not Found!</h1>
+        )}
+      </div>
+    );
 };
 
 export default PropertyList;
