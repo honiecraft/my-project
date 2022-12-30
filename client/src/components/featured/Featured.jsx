@@ -24,8 +24,8 @@ const Featured = ({ hotelList }) => {
 
   return (
     <div className="featured">
-      {result.length > 0 ? (
-        result.map((h) => {
+      {result?.length > 0 ? (
+        result?.map((h) => {
           return (
             <div className="featuredItem" key={h.city}>
               <img src={h.img} alt="" className="featuredImg" />
