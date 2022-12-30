@@ -24,9 +24,9 @@ This project is simple a application that demonstrates an E-commerce website wit
   - Perform Authentication and Authorization with the incoming request.
   - Respond with appropriate Resources, Errors, and Status codes.
 ### Demo
-- [Client page](https://shopping-client.onrender.com)  
-- [Admin page](https://shopping-admin.onrender.com)
-- [Server page](https://shopping-server.onrender.com)
+- [Client page](https://shopping-client1.onrender.com)  
+- [Admin page](https://shopping-admin1.onrender.com)
+- [Server page](https://shopping-server1.onrender.com)
 
 ## Features
 * Uses React Js for UI
