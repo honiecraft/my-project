@@ -1,3 +1,4 @@
+import Loading from "../Loading";
 import "./featured.css";
 
 const imgArr = [
@@ -17,30 +18,35 @@ const imgArr = [
 
 const Featured = ({ hotelList }) => {
   // Map Hotel list by City with image
-  const result = hotelList?.map((h) => ({
-    ...h,
-    img: imgArr.filter((img) => img.id === h.city)[0].img,
-  }));
+  const result =
+    hotelList &&
+    hotelList.map((h) => ({
+      ...h,
+      img: imgArr.filter((img) => img.id === h.city)[0].img,
+    }));
 
-  return (
-    <div className="featured">
-      {result?.length > 0 ? (
-        result?.map((h) => {
-          return (
-            <div className="featuredItem" key={h.city}>
-              <img src={h.img} alt="" className="featuredImg" />
-              <div className="featuredTitles">
-                <h1>{h.city}</h1>
-                <h2>{h.count} properties</h2>
+  if (!result) {
+    return <Loading />;
+  } else
+    return (
+      <div className="featured">
+        {result.length > 0 ? (
+          result.map((h) => {
+            return (
+              <div className="featuredItem" key={h.city}>
+                <img src={h.img} alt="" className="featuredImg" />
+                <div className="featuredTitles">
+                  <h1>{h.city}</h1>
+                  <h2>{h.count} properties</h2>
+                </div>
               </div>
-            </div>
-          );
-        })
-      ) : (
-        <h1>Not Found!</h1>
-      )}
-    </div>
-  );
+            );
+          })
+        ) : (
+          <h1>Not Found!</h1>
+        )}
+      </div>
+    );
 };
 
 export default Featured;
