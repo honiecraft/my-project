@@ -18,11 +18,17 @@ const RoomForm = () => {
   const tokenInfor = token ? token : null;
 
   const { data, isLoading } = useFetch(
-    `http://localhost:5000/rooms${isEditing && `/${selectedRoomlId}`}`,
+    `${process.env.REACT_APP_SERVER_URL}/rooms${
+      isEditing && `/${selectedRoomlId}`
+    }`,
     null,
     null
   );
-  const hotelList = useFetch(`http://localhost:5000/hotels`, null, null);
+  const hotelList = useFetch(
+    `${process.env.REACT_APP_SERVER_URL}/hotels`,
+    null,
+    null
+  );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,7 +50,7 @@ const RoomForm = () => {
     } else
       try {
         const response = await fetch(
-          `http://localhost:5000/rooms/${
+          `${process.env.REACT_APP_SERVER_URL}/rooms/${
             isEditing ? selectedRoomlId : hotelId
           }`,
           {

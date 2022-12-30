@@ -16,7 +16,7 @@ const Home = () => {
   };
 
   const { data, isLoading } = useFetch(
-    "http://localhost:5000/hotels/hotelsbyfields",
+    `${process.env.REACT_APP_SERVER_URL}/hotels/hotelsbyfields`,
     "POST",
     homePageFields
   );

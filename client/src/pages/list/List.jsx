@@ -24,7 +24,7 @@ const List = () => {
   };
 
   const { data, isLoading, fetchData } = useFetch(
-    "http://localhost:5000/hotels/search",
+    `${process.env.REACT_APP_SERVER_URL}/hotels/search`,
     "POST",
     query
   );

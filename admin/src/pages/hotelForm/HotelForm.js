@@ -16,12 +16,18 @@ const HotelForm = () => {
 
   const [info, setInfo] = useState({});
   const { data } = useFetch(
-    `http://localhost:5000/hotels${isEditing ? `/${selectedHotelId}` : ""}`,
+    `${process.env.REACT_APP_SERVER_URL}/hotels${
+      isEditing ? `/${selectedHotelId}` : ""
+    }`,
     null,
     null
   );
 
-  const roomList = useFetch(`http://localhost:5000/rooms`, null, null);
+  const roomList = useFetch(
+    `${process.env.REACT_APP_SERVER_URL}/rooms`,
+    null,
+    null
+  );
 
   const [rooms, setRooms] = useState(data ? data["rooms"] : []);
 
@@ -52,7 +58,9 @@ const HotelForm = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/hotels${isEditing ? `/${selectedHotelId}` : ""}`,
+        `${process.env.REACT_APP_SERVER_URL}/hotels${
+          isEditing ? `/${selectedHotelId}` : ""
+        }`,
         {
           method: isEditing ? "PUT" : "POST",
           credentials: "include",

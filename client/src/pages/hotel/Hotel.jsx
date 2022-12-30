@@ -28,7 +28,7 @@ const Hotel = () => {
 
   // Fetch Infor Hotel
   const { data, isLoading } = useFetch(
-    `http://localhost:5000/hotels/${hotelId}`,
+    `${process.env.REACT_APP_SERVER_URL}/hotels/${hotelId}`,
     null,
     null
   );

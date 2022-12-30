@@ -15,7 +15,9 @@ const Datagrid = ({ col }) => {
   const tokenInfor = token ? token : null;
 
   const { data, isLoading, error } = useFetch(
-    `http://localhost:5000/${path === "" ? "transactions?limit=8" : path}`,
+    `${process.env.REACT_APP_SERVER_URL}/${
+      path === "" ? "transactions?limit=8" : path
+    }`,
     null,
     null
   );
@@ -27,14 +29,17 @@ const Datagrid = ({ col }) => {
   const handleDelete = async (id) => {
     if (window.confirm("Confirm to Delete?")) {
       try {
-        const response = await fetch(`http://localhost:5000/${path}/${id}`, {
-          method: "DELETE",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: tokenInfor ? `Bearer ${tokenInfor}` : ``,
-          },
-        });
+        const response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/${path}/${id}`,
+          {
+            method: "DELETE",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: tokenInfor ? `Bearer ${tokenInfor}` : ``,
+            },
+          }
+        );
         const body = await response.json();
         if (!response.ok) {
           alert("Can not delete!");

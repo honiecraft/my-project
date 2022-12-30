@@ -23,14 +23,17 @@ const Login = () => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
     try {
-      const response = await fetch(`http://localhost:5000/auth${path}`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(inputUser),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/auth${path}`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(inputUser),
+        }
+      );
       const body = await response.json();
 
       if (response.status !== 200) {

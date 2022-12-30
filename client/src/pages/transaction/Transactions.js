@@ -7,8 +7,8 @@ import useFetch from "../../hooks/useFetch";
 
 const Transaction = () => {
   const { user } = useContext(AuthContext);
-  const { data, isLoading, error } = useFetch(
-    `http://localhost:5000/transactions/${user._id}`,
+  const { data, isLoading } = useFetch(
+    `${process.env.REACT_APP_SERVER_URL}/transactions/${user._id}`,
     null,
     null
   );

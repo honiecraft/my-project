@@ -47,7 +47,7 @@ const Reserve = ({ setOpen, hotelId, dateConverter }) => {
 
       try {
         const resTrans = await fetch(
-          `http://localhost:5000/hotels/room/${hotelId}`,
+          `${process.env.REACT_APP_SERVER_URL}/hotels/room/${hotelId}`,
           {
             method: "POST",
             headers: {
@@ -77,14 +77,17 @@ const Reserve = ({ setOpen, hotelId, dateConverter }) => {
   // Create Transaction
   const postTransaction = async (data) => {
     try {
-      const resTrans = await fetch(`http://localhost:5000/transactions`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: tokenInfor ? `Bearer ${tokenInfor}` : ``,
-        },
-        body: JSON.stringify(data),
-      });
+      const resTrans = await fetch(
+        `${process.env.REACT_APP_SERVER_URL}/transactions`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: tokenInfor ? `Bearer ${tokenInfor}` : ``,
+          },
+          body: JSON.stringify(data),
+        }
+      );
       const dataTrans = await resTrans.json();
 
       if (!resTrans.ok) {
@@ -100,7 +103,7 @@ const Reserve = ({ setOpen, hotelId, dateConverter }) => {
   const updateUserInfor = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/users/${userInfor._id}`,
+        `${process.env.REACT_APP_SERVER_URL}/users/${userInfor._id}`,
         {
           method: "PUT",
           headers: {
