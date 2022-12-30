@@ -21,14 +21,16 @@ function App() {
   const path = location.pathname.split("/")[1];
 
   const RequireAuth = ({ children }) => {
-    const { user, token } = useContext(AuthContext);
-    if (!user) {
+    const { user, token, dispatch } = useContext(AuthContext);
+    const tokenInfor = token
+      ? token
+      : sessionStorage.getItem("token")
+      ? JSON.parse(sessionStorage.getItem("token"))
+      : null;
+    if (!user || (user && !tokenInfor)) {
+      dispatch({ type: "LOGOUT" });
       return <Navigate to="/login" />;
-    } else if (user && !token) {
-      localStorage.removeItem("user");
-      window.location.href = "/login";
     }
-
     return children;
   };
 

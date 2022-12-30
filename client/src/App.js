@@ -12,10 +12,15 @@ import MailList from "./components/mailList/MailList";
 import Footer from "./components/footer/Footer";
 
 function App() {
-  const { user, token } = useContext(AuthContext);
+  const { user, token, dispatch } = useContext(AuthContext);
   const RequireAuth = ({ children }) => {
-    if (!user || (user && !token)) {
-      localStorage.removeItem("user");
+    const tokenInfor = token
+      ? token
+      : sessionStorage.getItem("token")
+      ? JSON.parse(sessionStorage.getItem("token"))
+      : null;
+    if (!user || (user && !tokenInfor)) {
+      dispatch({ type: "LOGOUT" });
       return <Navigate to="/login" />;
     }
 
