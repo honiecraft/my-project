@@ -20,7 +20,10 @@ import { FadeTransform, Fade } from "react-animation-components";
 
 let i = 0;
 const reg = /^\d+(\.\d+)?$/;
-const required = (val) => val && val.length;
+const required = (val) => {
+  console.log(typeof val);
+  return val && val.toString().length;
+};
 const maxLength = (len) => (val) => !val || val.length <= len;
 const minLength = (len) => (val) => val && val.length >= len;
 const isNumber = (val) => !val || reg.test(val);
@@ -38,7 +41,7 @@ function RenderStaffInfor({ staff, departments }) {
         >
           <Media
             outline
-            className="bg-light row"
+            className="bg-light row align-items-center"
             style={{
               boxShadow: "0 5px 10px rgba(0, 0, 0, 0.2)",
             }}
@@ -67,7 +70,6 @@ const StaffInfor = (props) => {
   // Edit form
   const EditForm = (props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-
     const toggleModal = () => {
       setIsModalOpen(!isModalOpen);
     };
@@ -99,14 +101,11 @@ const StaffInfor = (props) => {
       });
     };
 
-    const HandleSubmit = (values) => {
-      toggleModal();
-      setUpdateStaff(values);
-
+    const handleSubmit = () => {
       setTimeout(() => {
         props.updateStaff(stateRef.current);
-        console.log(updateStaff);
       }, 0);
+      toggleModal();
     };
 
     const closeBtn = (
@@ -116,239 +115,254 @@ const StaffInfor = (props) => {
     );
 
     // Render HTML
-    return (
-      <>
-        <Button type="button" className="btn btn-light" onClick={toggleModal}>
-          <i className="fa fa-edit"></i>
-          <span> Chỉnh sửa</span>
-        </Button>
-        {/* Add new member */}
-        <Modal isOpen={isModalOpen}>
-          <ModalHeader toggle={toggleModal} close={closeBtn}>
-            Cập nhật thông tin
-          </ModalHeader>
-          <ModalBody>
-            <LocalForm onSubmit={(values) => HandleSubmit(values)}>
-              <Row>
-                <Label htmlFor="name" md={12}>
-                  Tên
-                </Label>
-                <Col md={12}>
-                  <Control.text
-                    id="name"
-                    name="name"
-                    defaultValue={props.staff.name}
-                    model=".name"
-                    className="form-control"
-                    validators={{
-                      required,
-                      minLength: minLength(3),
-                      maxLength: maxLength(30),
-                    }}
-                    onUpdate={handleInputChange}
-                  />
-                  <Errors
-                    model=".name"
-                    className="text-danger"
-                    show="touched"
-                    messages={{
-                      required: "Vui lòng không để trống. ",
-                      minLength: "Nhập tối thiểu 3 ký tự.",
-                      maxLength: "Vui lòng nhập tối đa 30 ký tự.",
-                    }}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Label htmlFor="id" md={12}></Label>
-                <Col md={12}>
-                  <Control.text
-                    type="hidden"
-                    id="id"
-                    name="id"
-                    value={props.staff.id}
-                    model=".id"
-                    className="form-control"
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Label htmlFor="doB" md={12}>
-                  Ngày sinh
-                </Label>
-                <Col md={12}>
-                  <Control.text
-                    type="date"
-                    id="doB"
-                    name="doB"
-                    defaultValue={props.staff.doB}
-                    model=".doB"
-                    className="form-control"
-                    validators={{
-                      required,
-                    }}
-                    onUpdate={handleInputChange}
-                  />
-                  <Errors
-                    model=".doB"
-                    className="text-danger"
-                    show="touched"
-                    messages={{
-                      required: "Vui lòng không để trống. ",
-                    }}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Label htmlFor="startDate" md={12}>
-                  Ngày vào công ty
-                </Label>
-                <Col md={12}>
-                  <Control.text
-                    type="date"
-                    id="startDate"
-                    name="startDate"
-                    defaultValue={props.staff.startDate}
-                    model=".startDate"
-                    className="form-control"
-                    validators={{
-                      required,
-                    }}
-                    onUpdate={handleInputChange}
-                  />
-                  <Errors
-                    model=".startDate"
-                    className="text-danger"
-                    show="touched"
-                    messages={{
-                      required: "Vui lòng không để trống. ",
-                    }}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Label htmlFor="departmentId" md={12}>
-                  Phòng ban
-                </Label>
-                <Col md={12}>
-                  <Control.select
-                    id="departmentId"
-                    name="departmentId"
-                    defaultValue={props.staff.departmentId}
-                    model=".departmentId"
-                    className="form-control"
-                    onUpdate={handleInputChange}
+    if (props.staff)
+      return (
+        <>
+          <Button
+            type="button"
+            className="btn btn-light m-2"
+            onClick={toggleModal}
+          >
+            <i className="fa fa-edit"></i>
+            <span> Chỉnh sửa</span>
+          </Button>
+          {/* Add new member */}
+          <Modal isOpen={isModalOpen}>
+            <ModalHeader toggle={toggleModal} close={closeBtn}>
+              Cập nhật thông tin
+            </ModalHeader>
+            <ModalBody>
+              <LocalForm onSubmit={handleSubmit}>
+                <Row>
+                  <Label htmlFor="name" md={12}>
+                    Tên
+                  </Label>
+                  <Col md={12}>
+                    <Control.text
+                      id="name"
+                      name="name"
+                      defaultValue={props.staff?.name}
+                      model=".name"
+                      className="form-control"
+                      validators={{
+                        required,
+                        minLength: minLength(3),
+                        maxLength: maxLength(30),
+                      }}
+                      onChange={handleInputChange}
+                    />
+                    <Errors
+                      model=".name"
+                      className="text-danger"
+                      show={(field) => {
+                        console.log(field);
+                        return field.touched && !field.focus;
+                      }}
+                      messages={{
+                        required: "Vui lòng không để trống. ",
+                        minLength: "Nhập tối thiểu 3 ký tự.",
+                        maxLength: "Vui lòng nhập tối đa 30 ký tự.",
+                      }}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Label htmlFor="id" md={12}></Label>
+                  <Col md={12}>
+                    <Control.text
+                      type="hidden"
+                      id="id"
+                      name="id"
+                      defaultValue={props.staff.id}
+                      model=".id"
+                      className="form-control"
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Label htmlFor="doB" md={12}>
+                    Ngày sinh
+                  </Label>
+                  <Col md={12}>
+                    <Control.text
+                      type="date"
+                      id="doB"
+                      name="doB"
+                      defaultValue={dateFormat(props.staff.doB, "yyyy-mm-dd")}
+                      model=".doB"
+                      className="form-control"
+                      validators={{
+                        required,
+                      }}
+                      onChange={handleInputChange}
+                    />
+                    <Errors
+                      model="updateStaff.doB"
+                      className="text-danger"
+                      show={(field) => field.touched && !field.focus}
+                      messages={{
+                        required: "Vui lòng không để trống. ",
+                      }}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Label htmlFor="startDate" md={12}>
+                    Ngày vào công ty
+                  </Label>
+                  <Col md={12}>
+                    <Control.text
+                      type="date"
+                      id="startDate"
+                      name="startDate"
+                      defaultValue={dateFormat(
+                        props.staff.startDate,
+                        "yyyy-mm-dd"
+                      )}
+                      model=".startDate"
+                      className="form-control"
+                      validators={{
+                        required,
+                      }}
+                      onChange={handleInputChange}
+                    />
+                    <Errors
+                      model=".startDate"
+                      className="text-danger"
+                      show={(field) => field.touched && !field.focus}
+                      messages={{
+                        required: "Vui lòng không để trống. ",
+                      }}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Label htmlFor="departmentId" md={12}>
+                    Phòng ban
+                  </Label>
+                  <Col md={12}>
+                    <Control.select
+                      id="departmentId"
+                      name="departmentId"
+                      defaultValue={props.staff.departmentId}
+                      model=".departmentId"
+                      className="form-control"
+                      onChange={handleInputChange}
+                    >
+                      <option value="Dept01">Sale</option>
+                      <option value="Dept02">HR</option>
+                      <option value="Dept03">Marketing</option>
+                      <option value="Dept04">IT</option>
+                      <option value="Dept05">Finance</option>
+                    </Control.select>
+                  </Col>
+                </Row>
+                <Row>
+                  <Label htmlFor="salaryScale" md={12}>
+                    Hệ số lương
+                  </Label>
+                  <Col md={12}>
+                    <Control.text
+                      id="salaryScale"
+                      name="salaryScale"
+                      defaultValue={props.staff.salaryScale}
+                      placeholder="Nhập Hệ số lương"
+                      model=".salaryScale"
+                      className="form-control"
+                      validators={{
+                        required,
+                        isNumber,
+                      }}
+                      onChange={handleInputChange}
+                    />
+                    <Errors
+                      model=".salaryScale"
+                      className="text-danger"
+                      show={(field) => {
+                        console.log(field);
+                        return field.touched && !field.focus;
+                      }}
+                      messages={{
+                        required: "Vui lòng không để trống. ",
+                        isNumber: "Hệ số lương chỉ bao gồm số",
+                      }}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Label htmlFor="annualLeave" md={12}>
+                    Số ngày nghỉ còn lại
+                  </Label>
+                  <Col md={12}>
+                    <Control.text
+                      id="annualLeave"
+                      name="annualLeave"
+                      defaultValue={props.staff.annualLeave}
+                      placeholder="Nhập số ngày nghỉ còn lại"
+                      model=".annualLeave"
+                      className="form-control"
+                      validators={{
+                        required,
+                        isNumber,
+                      }}
+                      onChange={handleInputChange}
+                    />
+                    <Errors
+                      model=".annualLeave"
+                      className="text-danger"
+                      show={(field) => field.touched && !field.focus}
+                      messages={{
+                        required: "Vui lòng không để trống. ",
+                        isNumber: "Số ngày chỉ bao gồm số",
+                      }}
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Label htmlFor="overTime" md={12}>
+                    Số ngày đã làm thêm
+                  </Label>
+                  <Col md={12}>
+                    <Control.text
+                      id="overTime"
+                      name="overTime"
+                      defaultValue={props.staff.overTime}
+                      placeholder="Nhập số ngày làm thêm"
+                      model=".overTime"
+                      className="form-control"
+                      validators={{
+                        required,
+                        isNumber,
+                      }}
+                      onChange={handleInputChange}
+                    />
+                    <Errors
+                      model=".overTime"
+                      className="text-danger"
+                      show={(field) => field.touched && !field.focus}
+                      messages={{
+                        required: "Vui lòng không để trống. ",
+                        isNumber: "Số ngày chỉ bao gồm số",
+                      }}
+                    />
+                  </Col>
+                </Row>
+                <FormGroup>
+                  <Button
+                    type="submit"
+                    value="submit"
+                    color="primary"
+                    className="mt-3"
+                    // disabled={{ valid: false, touched: true }}
                   >
-                    <option value="Dept01">Sale</option>
-                    <option value="Dept02">HR</option>
-                    <option value="Dept03">Marketing</option>
-                    <option value="Dept04">IT</option>
-                    <option value="Dept05">Finance</option>
-                  </Control.select>
-                </Col>
-              </Row>
-              <Row>
-                <Label htmlFor="salaryScale" md={12}>
-                  Hệ số lương
-                </Label>
-                <Col md={12}>
-                  <Control.text
-                    id="salaryScale"
-                    name="salaryScale"
-                    defaultValue={props.staff.salaryScale}
-                    placeholder="Nhập Hệ số lương"
-                    model=".salaryScale"
-                    className="form-control"
-                    validators={{
-                      required,
-                      isNumber,
-                    }}
-                    onUpdate={handleInputChange}
-                  />
-                  <Errors
-                    model=".salaryScale"
-                    className="text-danger"
-                    show="touched"
-                    messages={{
-                      required: "Vui lòng không để trống. ",
-                      isNumber: "Hệ số lương chỉ bao gồm số",
-                    }}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Label htmlFor="annualLeave" md={12}>
-                  Số ngày nghỉ còn lại
-                </Label>
-                <Col md={12}>
-                  <Control.text
-                    id="annualLeave"
-                    name="annualLeave"
-                    defaultValue={props.staff.annualLeave}
-                    placeholder="Nhập số ngày nghỉ còn lại"
-                    model=".annualLeave"
-                    className="form-control"
-                    validators={{
-                      required,
-                      isNumber,
-                    }}
-                    onUpdate={handleInputChange}
-                  />
-                  <Errors
-                    model=".annualLeave"
-                    className="text-danger"
-                    show="touched"
-                    messages={{
-                      required: "Vui lòng không để trống. ",
-                      isNumber: "Số ngày chỉ bao gồm số",
-                    }}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Label htmlFor="overTime" md={12}>
-                  Số ngày đã làm thêm
-                </Label>
-                <Col md={12}>
-                  <Control.text
-                    id="overTime"
-                    name="overTime"
-                    defaultValue={props.staff.overTime}
-                    placeholder="Nhập số ngày làm thêm"
-                    model=".overTime"
-                    className="form-control"
-                    validators={{
-                      required,
-                      isNumber,
-                    }}
-                    onUpdate={handleInputChange}
-                  />
-                  <Errors
-                    model=".overTime"
-                    className="text-danger"
-                    show="touched"
-                    messages={{
-                      required: "Vui lòng không để trống. ",
-                      isNumber: "Số ngày chỉ bao gồm số",
-                    }}
-                  />
-                </Col>
-              </Row>
-              <FormGroup>
-                <Button
-                  type="submit"
-                  value="submit"
-                  color="primary"
-                  className="mt-3"
-                >
-                  Update
-                </Button>
-              </FormGroup>
-            </LocalForm>
-          </ModalBody>
-        </Modal>
-      </>
-    );
+                    Update
+                  </Button>
+                </FormGroup>
+              </LocalForm>
+            </ModalBody>
+          </Modal>
+        </>
+      );
   };
 
   // Display Breadcrumb and render function
@@ -387,7 +401,7 @@ const StaffInfor = (props) => {
           <div className="container mt-5">
             <div
               className="
-            row d-flex justify-content-center"
+             d-flex justify-content-center "
             >
               {/* Edit Form */}
               <EditForm
@@ -396,7 +410,7 @@ const StaffInfor = (props) => {
                 updateStaff={props.updateStaff}
               />
               {/* Delete button */}
-              <Link to={`/nhanvien`}>
+              <Link to={`/nhanvien`} className="m-2">
                 <Button
                   className="ml-5 btn btn-dark"
                   onClick={() => {
@@ -413,7 +427,7 @@ const StaffInfor = (props) => {
         <div className="container">
           <Fade in>
             <div className="row py-0">
-              <Breadcrumb className="col-12 py-0">
+              <Breadcrumb className="col-12 my-2">
                 <BreadcrumbItem>
                   <Link to="/nhanvien">Nhân viên</Link>
                 </BreadcrumbItem>

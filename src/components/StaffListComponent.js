@@ -10,6 +10,7 @@ import {
   Form,
   FormGroup,
   InputGroup,
+  InputGroupText,
   Input,
   Button,
   Row,
@@ -36,16 +37,16 @@ const RenderStaff = ({ staff }) => {
         exitTransform: "scale(0.5) translateY(-50%)",
       }}
     >
-      <Card id="staffName" className="mt-0 p-0">
-        <Link to={`/nhanvien/${staff.id}`}>
+      <Link to={`/nhanvien/${staff.id}`} className="text-decoration-none">
+        <Card id="staffName" className="mt-0 p-0">
           <div className="inner mt-0 pt-0">
             <CardImg src={staff.image} alt={staff.name} />
           </div>
           <CardBody className="text-center p-3">
-            <CardTitle className="m-0">{staff.name}</CardTitle>
+            <CardTitle className="m-0 ">{staff.name}</CardTitle>
           </CardBody>
-        </Link>
-      </Card>
+        </Card>
+      </Link>
     </FadeTransform>
   );
 };
@@ -155,14 +156,12 @@ const StaffList = (props) => {
               <div className="col-6">
                 <Form>
                   <InputGroup>
-                    <div className="input-group-prepend">
-                      <span className="input-group-text">
-                        <i
-                          className="input-group-prepend fa fa-search"
-                          aria-hidden="true"
-                        ></i>
-                      </span>
-                    </div>
+                    <InputGroupText>
+                      <i
+                        className="input-group-prepend fa fa-search"
+                        aria-hidden="true"
+                      ></i>
+                    </InputGroupText>
                     <Input
                       className="form-control my-0 py-1 red-border"
                       type="search"
@@ -387,16 +386,16 @@ const StaffList = (props) => {
                     </LocalForm>
                   </ModalBody>
                 </Modal>
+              </div>
+              <div className="d-flex justify-content-between">
                 <Button color="dark" onClick={toggleModal}>
                   <span className="fa fa-plus-circle fa-lg"></span>{" "}
                   <span className="d-none d-md-inline">Thêm nhân viên</span>
                 </Button>
-              </div>
-              {/* Change layout button */}
-              <div className="col-6 col-md-6 col-lg-6">
+                {/* Change layout button */}
                 <Button
                   type="button"
-                  className="btn btn-warning float-right"
+                  className="btn btn-warning right-0"
                   onClick={() => {
                     // only apply for lg & md screen
                     const layout = [
