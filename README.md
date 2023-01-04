@@ -6,7 +6,7 @@
 * [Setup](#setup)
 
 ## General info
-This project is a simple Employee Management website using ReactJS, Redux, Redux Thunk, and Bootstrap, which will receive inputs from users and perform other operations like:
+This project is a simple Employee Management website using ReactJS, Redux, Redux Thunk, and Bootstrap, which will receive inputs from users (validated by react-redux-form) and perform other operations like:
 * Adding a new employee.
 * Editing the existing employee data.
 * Deleting the employee information.
